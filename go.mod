@@ -1,14 +1,12 @@
-module github.com/jkrajniak/graphql-codegen-go
+module github.com/enix/graphql-codegen-go
 
 go 1.13
 
 require (
-	github.com/dave/jennifer v1.4.0 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/kr/pretty v0.2.0 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/stretchr/testify v1.4.0
-	github.com/vektah/gqlparser v1.3.1
 	github.com/vektah/gqlparser/v2 v2.0.1
 	golang.org/x/crypto v0.0.0-20200109152110-61a87790db17 // indirect
 	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect

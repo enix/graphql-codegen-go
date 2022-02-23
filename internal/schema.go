@@ -2,13 +2,14 @@ package internal
 
 import (
 	"fmt"
-	"github.com/jkrajniak/graphql-codegen-go/internal/readers"
+	"os"
+
+	"github.com/enix/graphql-codegen-go/internal/readers"
 	"github.com/pkg/errors"
 	"github.com/vektah/gqlparser/v2/ast"
 	"github.com/vektah/gqlparser/v2/formatter"
 	"github.com/vektah/gqlparser/v2/parser"
 	"github.com/vektah/gqlparser/v2/validator"
-	"os"
 )
 
 type InputSchema struct {
@@ -33,7 +34,7 @@ func ReadSchemas(schemaPaths []string) ([]InputSchema, error) {
 }
 
 func LoadSchemas(inputSchemas []InputSchema) (*ast.SchemaDocument, error) {
-	sourceSchemas := []*ast.Source{validator.Prelude}  // include types
+	sourceSchemas := []*ast.Source{validator.Prelude} // include types
 	for _, inputSchema := range inputSchemas {
 		sourceSchemas = append(sourceSchemas, &ast.Source{
 			Name:    inputSchema.SourcePath,
