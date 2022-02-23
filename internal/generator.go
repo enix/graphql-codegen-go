@@ -25,11 +25,12 @@ package %s
 )
 
 var GQLTypesToGoTypes = map[string]string{
-	"Int":     "int64",
-	"Float":   "float64",
-	"String":  "string",
-	"Boolean": "bool",
-	"ID":      "string",
+	"Int":      "int64",
+	"Float":    "float64",
+	"String":   "string",
+	"Boolean":  "bool",
+	"ID":       "string",
+	"DateTime": "time.Time",
 }
 
 type GoGenerator struct {
