@@ -18,8 +18,8 @@ package %s
 %s
 }`
 
-	FieldTPL        = "  %s %s `json:\"%s,omitempty\"`"
-	ListFieldTPL    = "  %s []%s `json:\"%s,omitempty\"`"
+	FieldTPL        = "  %s %s `json:\"%s,omitempty\" yaml:\"%s,omitempty\"`"
+	ListFieldTPL    = "  %s []%s `json:\"%s,omitempty\" yaml:\"%s,omitempty\"`"
 	EnumTypeDefTPL  = "type %s %s"
 	EnumDefConstTPL = "const %s%s %s = \"%s\""
 )
@@ -101,9 +101,9 @@ func (g *GoGenerator) Generate(doc *ast.SchemaDocument) error {
 				jsonFieldName := f.Name
 				if f.Type.Elem != nil { // list type
 					elemTypeName := resolveType(f.Type.Elem.Name(), enumMap, f.Type.Elem.NonNull)
-					fields = append(fields, fmt.Sprintf(ListFieldTPL, fieldName, elemTypeName, jsonFieldName))
+					fields = append(fields, fmt.Sprintf(ListFieldTPL, fieldName, elemTypeName, jsonFieldName, jsonFieldName))
 				} else {
-					fields = append(fields, fmt.Sprintf(FieldTPL, fieldName, typeName, jsonFieldName))
+					fields = append(fields, fmt.Sprintf(FieldTPL, fieldName, typeName, jsonFieldName, jsonFieldName))
 				}
 			}
 			if err := declaredKeywords.Set(i.Name); err != nil {
@@ -113,7 +113,7 @@ func (g *GoGenerator) Generate(doc *ast.SchemaDocument) error {
 				return err
 			}
 		} else if i.Kind == ast.Union {
-			fields := []string{fmt.Sprintf(FieldTPL, "TypeName", "string", "__typeName")}
+			fields := []string{fmt.Sprintf(FieldTPL, "TypeName", "string", "__typeName", "__typeName")}
 			fields = append(fields, i.Types...)
 			if err := declaredKeywords.Set(i.Name); err != nil {
 				return err
