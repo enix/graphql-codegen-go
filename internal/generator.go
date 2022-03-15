@@ -18,8 +18,8 @@ package %s
 %s
 }`
 
-	FieldTPL        = "  %s %s `json:\"%s\",omitempty`"
-	ListFieldTPL    = "  %s []%s `json:\"%s\",omitempty`"
+	FieldTPL        = "  %s %s `json:\"%s,omitempty\"`"
+	ListFieldTPL    = "  %s []%s `json:\"%s,omitempty\"`"
 	EnumTypeDefTPL  = "type %s %s"
 	EnumDefConstTPL = "const %s%s %s = \"%s\""
 )
