@@ -26,6 +26,8 @@ package %s
 
 var GQLTypesToGoTypes = map[string]string{
 	"Int":      "int64",
+	"Int32":    "int64",
+	"Int64":    "int64",
 	"Float":    "float64",
 	"String":   "string",
 	"Boolean":  "bool",
