@@ -42,7 +42,12 @@ func LoadSchemas(inputSchemas []InputSchema) (*ast.SchemaDocument, error) {
 			BuiltIn: false,
 		})
 	}
-	doc, err := parser.ParseSchemas(sourceSchemas...)
+	doc, gqlErr := parser.ParseSchemas(sourceSchemas...)
+	if gqlErr != nil {
+		return nil, gqlErr
+	}
+
+	err := inheritInterfaces(doc)
 	if err != nil {
 		return nil, err
 	}
@@ -55,4 +60,25 @@ func LoadSchemas(inputSchemas []InputSchema) (*ast.SchemaDocument, error) {
 	}
 
 	return doc, nil
+}
+
+func inheritInterfaces(doc *ast.SchemaDocument) error {
+	for _, definition := range doc.Definitions {
+		if definition.Kind != ast.Object {
+			continue
+		}
+
+		for _, interfaceName := range definition.Interfaces {
+			iface := doc.Definitions.ForName(interfaceName)
+			if iface == nil {
+				return fmt.Errorf("no such interface: %s", interfaceName)
+			}
+
+			for _, field := range iface.Fields {
+				definition.Fields = append(definition.Fields, field)
+			}
+		}
+	}
+
+	return nil
 }
